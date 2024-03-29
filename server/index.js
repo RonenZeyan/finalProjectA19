@@ -12,7 +12,8 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 app.use(express.static('public'));
-mongoose.connect("mongodb://localhost:27017/UsersMissionsManagement")
+// mongoose.connect("mongodb://localhost:27017/UsersMissionsManagement")
+mongoose.connect("mongodb+srv://hunterman481:EWsTL72vV9XJOMFy@usersmissionsmanagement.byntanj.mongodb.net/?retryWrites=true&w=majority&appName=UsersMissionsManagement")
 
 function makeToken(userType)
 {
