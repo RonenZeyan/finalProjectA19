@@ -17,7 +17,7 @@ export default function Login() {
     
     const handleSubmit = async (e)=>{
         e.preventDefault()
-        axios.post('http://localhost:3001/adminLogin',{Email,Password})
+        axios.post('https://final-project-a19-api.vercel.app/adminLogin',{Email,Password})
         .then(result => {console.log(result.data)
           const resData = result.data;
           if(resData.loginStatus==true)
