@@ -200,7 +200,7 @@ app.post('/add_employee',async (req,res)=>{
     const { name, email, phone, gender } = req.body;
     const password = Math.random().toString(36).slice(-8);  //create random password
     const age = 99; //default value chosen for age (user can change it)
-    const image = gender==="male"?'./images/iconMan.png':'./images/iconFemale.png';
+    const image = gender==="male"?'Images/iconMan.png':'Images/iconFemale.png';
     const newEmployee = {
         name,
         email,
