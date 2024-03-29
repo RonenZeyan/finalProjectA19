@@ -43,7 +43,7 @@ export default function EditUserByAdmin(){
 
     return (
         <div className="user_home h-[100vh] content flex flex-col justify-center items-center py-7">
-            <img className='rounded-full bg-white w-[250px] h-[250px] border border-black' src={userData.image?`http://localhost:3001\\${userData.image}`:"\images\iconMan.png"}  alt="mypicture" />
+            <img className='rounded-full bg-white w-[250px] h-[250px] border border-black' src={userData.image?`${userData.image}`:"\images\iconMan.png"}  alt="mypicture" />
             <h1 className='font-bold font-mono text-3xl py-4'>{userData.name}</h1>
             <EditableField label="name" value={userData.name} onChange={(e) => handleChange('name', e.target.value)} isDisabled={isDisabled} />
             <EditableField label="Age" value={userData.age} onChange={(e) => handleChange('age', e.target.value)} isDisabled={isDisabled} />
