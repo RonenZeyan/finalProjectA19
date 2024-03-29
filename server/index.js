@@ -10,13 +10,13 @@ const multer = require('multer');
 
 const app = express()
 app.use(express.json())
-app.use(cors(
-    {
-        origin:["https://final-project-a19-frontend.vercel.app"],
-        methods:["POST","GET","DELETE"],
-        credentials:true
-    }
-));
+app.use(cors({
+    origin: 'https://final-project-a19-frontend.vercel.app',
+    methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
+    credentials: true,
+    allowedHeaders: 'Content-Type,Authorization'
+}));
+
 app.use(express.static('public'));
 // mongoose.connect("mongodb://localhost:27017/UsersMissionsManagement")
 mongoose.connect("mongodb+srv://hunterman481:EWsTL72vV9XJOMFy@usersmissionsmanagement.byntanj.mongodb.net/?retryWrites=true&w=majority&appName=UsersMissionsManagement")
