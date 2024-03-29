@@ -12,7 +12,7 @@ const app = express()
 app.use(express.json())
 app.use(cors(
     {
-        origin:["https://final-project-a19-frontend.vercel.app/"],
+        origin:["https://final-project-a19-frontend.vercel.app"],
         methods:["POST","GET","DELETE"],
         credentials:true
     }
