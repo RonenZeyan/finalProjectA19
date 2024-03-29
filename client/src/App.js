@@ -16,6 +16,8 @@ import {BrowserRouter,Route,Routes} from 'react-router-dom'
 import EditUserByAdmin from './components/editUserByAdmin';
 import CreateMSG from './components/CreateMSG';
 import DisplayMSG from './components/DisplayMSG';
+import axios from 'axios';
+axios.defaults.withCredentials = true;
 
 
 function App() {
