@@ -15,7 +15,7 @@ export default function UsersTable(){
         const [allUsers,setAllusers] = useState([])
 
         useEffect(()=>{
-            axios.get('http://localhost:3001/users')
+            axios.get('https://final-project-a19-api.vercel.app/users')
             .then(
                 (users) =>{setUsers(users.data); setAllusers(users.data); console.log(users.data);}
                 )
@@ -38,7 +38,7 @@ export default function UsersTable(){
             
             if (isConfirmed) {
                 //in case user press yes then the delete happen
-                axios.delete(`http://localhost:3001/users/delete/${userId}`)
+                axios.delete(`https://final-project-a19-api.vercel.app/users/delete/${userId}`)
                     .then(() => {
                          //we filtered the undisired user (filter func return a new array with the remain users)
                         const updatedUsers = users.filter(user => user._id !== userId);

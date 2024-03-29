@@ -19,7 +19,7 @@ export default function NewMissionModal({setVisiblity,userId,isVisible,setNewMis
         e.preventDefault()
         console.log(mission)
         setVisiblity(false)
-       axios.post('http://localhost:3001/add_mission',mission) //send a mission as param to the backend
+       axios.post('https://final-project-a19-api.vercel.app/add_mission',mission) //send a mission as param to the backend
         .then(result => {
             setNewMission(result.data);
         })

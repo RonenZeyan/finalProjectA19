@@ -14,7 +14,7 @@ export default function UserHome(){
  
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/numMissionsMessages/${userID}`)
+        axios.get(`https://final-project-a19-api.vercel.app/numMissionsMessages/${userID}`)
             .then((response) => {
                 setnewMissionsNum(response.data); 
                 console.log(response.data);
@@ -23,7 +23,7 @@ export default function UserHome(){
     }, []);
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/numMessages`)
+        axios.get(`https://final-project-a19-api.vercel.app/numMessages`)
             .then((response) => {
                 setMessageNum(response.data); 
                 console.log(response.data);

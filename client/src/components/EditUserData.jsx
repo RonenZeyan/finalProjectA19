@@ -10,7 +10,7 @@ export default function EditUserData(){
     const [isDisabled, setIsDisabled] = useState(true);
 //display the data of user 
     useEffect(() => {
-        axios.get(`http://localhost:3001/userData/${userID}`)
+        axios.get(`https://final-project-a19-api.vercel.app/userData/${userID}`)
             .then((response) => {
                 setUserData(response.data); 
                 console.log(response.data);
@@ -43,7 +43,7 @@ export default function EditUserData(){
         }
         console.log('Updating data:', userData);
         console.log('Updating data:', formData);
-        axios.post(`http://localhost:3001/editUserData/${userID}`,formData)
+        axios.post(`https://final-project-a19-api.vercel.app/editUserData/${userID}`,formData)
         .then(response=>{
             console.log(response)
             if(response.data && response.data.profilePicture)

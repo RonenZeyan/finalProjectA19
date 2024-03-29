@@ -11,7 +11,7 @@ export default function UserExistingMissions(){
     const [allMission,setAllMissions] = useState([])
     const userID = localStorage.getItem('userID');
     useEffect(()=>{
-        axios.get(`http://localhost:3001/ExistingUserMissions/${userID}`)
+        axios.get(`https://final-project-a19-api.vercel.app/ExistingUserMissions/${userID}`)
         .then(
             (Missions) =>{
                 console.log(Missions.data);
@@ -40,7 +40,7 @@ export default function UserExistingMissions(){
         const isConfirmed = window.confirm("Are you sure you want to set this mission as finished?");
         if(isConfirmed)
         {
-            axios.post(`http://localhost:3001/finishMission/${mission._id}`)
+            axios.post(`https://final-project-a19-api.vercel.app/finishMission/${mission._id}`)
             .then(res=>
                 {
                 setMissions(prevMissions => prevMissions.filter(m => m._id !== mission._id)); //filter the accepted mission and render the table by useState

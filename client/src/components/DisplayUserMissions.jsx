@@ -17,7 +17,7 @@ export default function DisplayUserMissions(){
     const [UserMissions,setUserMissions] = useState([])
     const [allUserMissions,setAlluserMissions] = useState([])
     useEffect(()=>{
-        axios.get(`http://localhost:3001/users/userMissions/${id}`)
+        axios.get(`https://final-project-a19-api.vercel.app/users/userMissions/${id}`)
         .then(
             (UserMissions) =>{setUserMissions(UserMissions.data);setAlluserMissions(UserMissions.data); console.log(UserMissions.data);}
             )
@@ -34,7 +34,7 @@ export default function DisplayUserMissions(){
         const isConfirmed = window.confirm("Are you sure you want to delete this mission?"); 
         if (isConfirmed) {
             //in case user press yes then the delete happen
-            axios.delete(`http://localhost:3001/userMissions/delete/${mission._id}`)
+            axios.delete(`https://final-project-a19-api.vercel.app/userMissions/delete/${mission._id}`)
                 .then(() => {
                      //we filtered the undisired mission (filter func return a new array with the remain mission of the user)
                     const updatedUserMissions = UserMissions.filter(miss => miss._id !== mission._id);

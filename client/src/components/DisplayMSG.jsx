@@ -12,7 +12,7 @@ export default function DisplayMSG(){
     let visible = 'hidden'
     useEffect(
         ()=>{
-            axios.get('http://localhost:3001/get_messages')
+            axios.get('https://final-project-a19-api.vercel.app/get_messages')
             .then(res=>{ 
                 if(res.data)
                 {

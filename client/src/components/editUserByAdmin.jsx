@@ -13,7 +13,7 @@ export default function EditUserByAdmin(){
 //display the data of user 
     useEffect(() => {
         console.log(userID)
-        axios.get(`http://localhost:3001/userData/${userID}`)
+        axios.get(`https://final-project-a19-api.vercel.app/userData/${userID}`)
             .then((response) => {
                 setUserData(response.data); 
                 console.log(response.data);
@@ -34,7 +34,7 @@ export default function EditUserByAdmin(){
     const handleSubmit = () => {
         setIsDisabled(!isDisabled);  //disable the inputs again 
         console.log('Updating data:', userData);
-        axios.post(`http://localhost:3001/editUserData/${userID}`,userData)
+        axios.post(`https://final-project-a19-api.vercel.app/editUserData/${userID}`,userData)
         .then(response=>{
             console.log(response)
         })

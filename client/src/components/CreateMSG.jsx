@@ -16,7 +16,7 @@ export default function CreateMSG(){
     
     const submit = function(e){
         e.preventDefault() //submit of form make a refresh to the page (this action stop this refersh )
-        axios.post('http://localhost:3001/add_message',{title,content})
+        axios.post('https://final-project-a19-api.vercel.app/add_message',{title,content})
         .then(res=>{  //in case the comminucation with backend success then check if res from backend success mean the msg saved else mean the msg not saved
             if(res.data ==='success')
             {

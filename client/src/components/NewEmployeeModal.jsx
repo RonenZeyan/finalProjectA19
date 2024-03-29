@@ -17,7 +17,7 @@ export default function NewEmployeeModal({setVisiblity,isVisible,setNewUser}){
     const handleSubmit = (e)=>{
         e.preventDefault()
         setVisiblity(false)
-       axios.post('http://localhost:3001/add_employee',employee) //send a employee as param to the backend
+       axios.post('https://final-project-a19-api.vercel.app/add_employee',employee) //send a employee as param to the backend
         .then(result => {
             setNewUser(result.data);
         })

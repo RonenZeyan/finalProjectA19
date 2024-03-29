@@ -12,7 +12,7 @@ export default function MissionsTable(){
     const [Missions,setMissions] = useState([])
     const [AllMissions,setMAllissions] = useState([])
     useEffect(()=>{
-        axios.get(`http://localhost:3001/allMissions`)
+        axios.get(`https://final-project-a19-api.vercel.app/allMissions`)
         .then(
             (Missions) =>{setMissions(Missions.data);setMAllissions(Missions.data); console.log(Missions.data);}
             )
