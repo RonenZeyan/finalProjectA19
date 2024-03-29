@@ -11,7 +11,7 @@ export const Cell = (prop) => {
             {prop.header ? (
                 <strong>{prop.data}</strong>
             ) : isImageUrl(prop.data) ? (
-                <img className='m-auto' src={prop.data?`https://final-project-a19-api.vercel.app\\${prop.data}`:"\images\iconMan.png"} alt="UserIMG" style={{width: '50px', height: '50px',border:'solid 2px grey',borderRadius:'50%'}} />
+                <img className='m-auto' src={prop.data?`https://final-project-a19-api.vercel.app/${prop.data}`:"/images/iconMan.png"} alt="UserIMG" style={{width: '50px', height: '50px',border:'solid 2px grey',borderRadius:'50%'}} />
             ) : (
                 prop.data
             )}
