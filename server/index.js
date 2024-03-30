@@ -10,15 +10,16 @@ const multer = require('multer');
 
 const app = express()
 app.use(express.json())
-app.use(cors({
+app.use(cors({   //give the access from frontEnd
     origin: 'https://final-project-a19-frontend.vercel.app',
     methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
     credentials: true,
     allowedHeaders: 'Content-Type,Authorization'
 }));
 
-app.use(express.static('public'));
+app.use(express.static('public'));  
 // mongoose.connect("mongodb://localhost:27017/UsersMissionsManagement")
+//connect to mongodb in cloud 
 mongoose.connect("mongodb+srv://hunterman481:EWsTL72vV9XJOMFy@usersmissionsmanagement.byntanj.mongodb.net/?retryWrites=true&w=majority&appName=UsersMissionsManagement")
 
 function makeToken(userType)
@@ -32,16 +33,17 @@ function makeToken(userType)
 return token
 }
 
+//save the pictures that getten from the frontEND to backEND 
 const storage = multer.diskStorage({
     destination: function(req,file,cb){
-        return cb(null,"./public/Images")
+        return cb(null,"./public/Images")  //save to this path
     },
     filename: function(req,file,cb){
-        return cb(null,`${Date.now()}_${file.originalname}`)
+        return cb(null,`${Date.now()}_${file.originalname}`)  
     }
 })
 
-const upload = multer({storage})
+const upload = multer({storage}) //multer save the picture 
 
 // admin
 app.post('/adminLogin',(req,res)=>{

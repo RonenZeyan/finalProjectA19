@@ -15,7 +15,7 @@ export default function Login() {
     const [error, setError] = useState(null)
     
     const handleSubmit = async (e)=>{
-        e.preventDefault()
+        e.preventDefault()  //to stop refresh to the page 
         axios.post('https://final-project-a19-api.vercel.app/adminLogin',{Email,Password})
         .then(result => {console.log(result.data)
           const resData = result.data;
