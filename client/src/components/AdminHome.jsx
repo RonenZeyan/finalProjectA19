@@ -4,10 +4,10 @@ import { useAuth } from "./AuthContext";
 import { useEffect,useState } from 'react';
 import axios from "axios"
 
-
+//this component used to display the page of adminHome
 export default function AdminHome(){
 
-    const { user } = useAuth(); 
+    const { user } = useAuth();
 
     return (
         <div className='user_home h-[100vh] text-center flex flex-col justify-center items-center'>

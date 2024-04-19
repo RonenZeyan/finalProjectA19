@@ -5,6 +5,7 @@ import axios from "axios"
 import SearchCompo from './SearchCompo';
 
 
+//this component used for display the mission of user in the waiting status 
 export default function UserNewMissions(){
     const tableHead=["missionDate","endDate","missionDescription","status"]
     const [Missions,setMissions] = useState([])

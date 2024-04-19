@@ -3,6 +3,7 @@ import { useState } from 'react';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 
+//this component used for display the modal in the usersTable component/page 
 export default function NewEmployeeModal({setVisiblity,isVisible,setNewUser}){
 
     const [employee, setEmployee] = useState({

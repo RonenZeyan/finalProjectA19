@@ -3,9 +3,11 @@ import { useState } from 'react';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from "./AuthContext";
-import {decodeToken,getUserIdFromToken} from "../utils/JWTutils";
+import {decodeToken,getUserIdFromToken} from "../utils/JWTutils"; //in jwtUtils there is a code that can decode the secret token send by the backend
 
-
+//this component used for login page (in this page we can display two types of home (userHome or adminHome))
+//the userHome or adminHome displayed by check the role (if it admin or user) in the decoded token that sended by the backend
+//token include email,username,id,role(admin/user) etc...
 export default function Login() {
 
     const { login } = useAuth(); 
@@ -23,14 +25,14 @@ export default function Login() {
           {
             setError(null)
             localStorage.setItem('token', resData.token);
-            const userInfo = decodeToken(resData.token);
+            const userInfo = decodeToken(resData.token); //decode the token
             login(resData.token)
-            localStorage.setItem('userID',resData.userID)
-            if(userInfo.role==='admin') {
-                navigate('/AdminHome');
+            localStorage.setItem('userID',resData.userID) //save some decoded data from token in the localstorage (we can save in session storage also)
+            if(userInfo.role==='admin') { //check role to know if the who loggedIN is user/admin
+                navigate('/AdminHome');  //in case it's admin then display a adminHome
             } 
             else {
-                navigate('/UserHome');
+                navigate('/UserHome'); //in case it's user then display userHome
             }
           }
           else
@@ -40,7 +42,7 @@ export default function Login() {
         })
         .catch(err=>console.log(err))
     }
-
+    //the html code that displayed 
     return (
     <div className='loginPage h-[100vh] flex flex-col justify-center items-center content'>
         <div className="my-20 py-16 px-24 bg-white bg-opacity-60 rounded-lg shadow-md w-[500px]">

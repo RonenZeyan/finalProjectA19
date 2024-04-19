@@ -6,7 +6,7 @@ import axios from "axios"
 import { Link,useNavigate } from "react-router-dom";
 import SearchCompo from './SearchCompo';
 
-
+//this component used for display the users table
 export default function UsersTable(){
         const [showModal,setShowModal] = useState(false)
         const navigate = useNavigate();
@@ -72,7 +72,7 @@ export default function UsersTable(){
             
         );
 
-
+        //this component reuse the table component and the search compoent also (in missionTable.jsx) we explain we more details 
         return (
             <div className="user_home h-[100vh] content flex flex-col gap-5 justify-center items-center">
                 <h1 className="font-bold text-3xl text-center py-3 ">Employees</h1>

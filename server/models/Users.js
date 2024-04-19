@@ -16,7 +16,7 @@ const UserSchema = new mongoose.Schema({
     },
     image: {
         type: String,
-        default: './images/iconMan.png', // נתיב לתמונת ברירת המחדל
+        default: './images/iconMan.png', // the path of the default image (before user upload his own)
     }, 
     phone: String, 
     gender: {

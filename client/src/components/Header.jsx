@@ -3,7 +3,7 @@ import {decodeToken,getUserIdFromToken} from "../utils/JWTutils";
 import { useAuth } from "./AuthContext";
 import React,{ useState, useEffect } from 'react'
 
-
+//this component used for display the navbar that displayed in the top of every page 
 export default function Header(){
 
     //set some hooks and other things

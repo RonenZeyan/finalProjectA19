@@ -2,7 +2,7 @@
 
 import React,{ useState } from 'react'
 
-
+//this component used for reuse the search because many pages have a search and we reuse it by make it as a indepdent component 
 export default function SearchCompo({searchByList,setData,allData,initialSearchState}){
 
     // let isPressed=false

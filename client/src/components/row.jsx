@@ -1,6 +1,8 @@
 import React from 'react'
 import Cell from "./cell"
 
+//this component used for make rows in the table (it reuse a cell)
+//by map and cell component we create all cells and save in this row 
 export const Row = (prop) =>{
     return (
         <tr className='md:table-row sm:flex sm:flex-col sm:justify-center sm:text-center'>

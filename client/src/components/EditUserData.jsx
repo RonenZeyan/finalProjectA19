@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from "axios"
 import EditableField from './EditableField';
 
-
+//this component used for change user data 
 export default function EditUserData(){
     const userID = localStorage.getItem('userID');
     const [userData, setUserData] = useState({ name: '', age: '', phone: '', password: '',image:'' });
@@ -42,7 +42,7 @@ export default function EditUserData(){
             formData.append('image',profilePicture);
         }
         console.log('Updating data:', userData);
-        console.log('Updating data:', formData);
+        console.log('Updating data:', formData); //data sended by formdata because we send a picture and this type can save pictures 
         axios.post(`https://final-project-a19-api.vercel.app/editUserData/${userID}`,formData)
         .then(response=>{
             console.log(response)

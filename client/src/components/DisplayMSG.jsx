@@ -5,6 +5,7 @@ import { useEffect,useState } from 'react';
 import axios from "axios"
 import { useNavigate } from 'react-router-dom';
 
+//this component use for display a messages 
 export default function DisplayMSG(){
 
     const [messages,setMessages] = useState([])
@@ -24,7 +25,7 @@ export default function DisplayMSG(){
                 }
                 else
                 {
-                    alert('failed to display the messages or there is no messages, please try again')
+                    alert('failed to display the messages or there is no messages, please try again') //display alert in case msg not displayed 
                 }
             })
             .catch(err=>{  //in case the sending to backend failed then display alert to user to tell him that cant comminucate with backend

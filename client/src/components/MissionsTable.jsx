@@ -6,11 +6,11 @@ import axios from "axios"
 import SearchCompo from './SearchCompo';
 
 
-
+//this component used for display the mission Table (all missions exist )
 export default function MissionsTable(){
     const tableHead=["employeeName","missionDate","endDate","missionDescription","status"]
     const [Missions,setMissions] = useState([])
-    const [AllMissions,setMAllissions] = useState([])
+    const [AllMissions,setMAllissions] = useState([]) //hook useState
     useEffect(()=>{
         axios.get(`https://final-project-a19-api.vercel.app/allMissions`)
         .then(
@@ -20,7 +20,10 @@ export default function MissionsTable(){
     },[])
 
     
-
+    //in this component we make reuse of the component search (there is more than one page have the same search)
+    //then we make search as a indepedent component to use it in more than one place
+    //we also use table component for reuse (becasue there are many pages include table)
+    //then we make a table and cell and row pages and use them in each page we have a table (we just send the data then the table will created)
     return (
         <div className="user_home h-[100vh] content flex flex-col justify-center items-center">
                     <h1 className="font-bold text-3xl text-center py-3 ">Missions</h1>

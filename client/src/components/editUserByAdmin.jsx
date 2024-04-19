@@ -3,7 +3,7 @@ import axios from "axios"
 import EditableField from './EditableField';
 import { useParams } from 'react-router-dom';
 
-
+//this component used for update user data by the admin 
 export default function EditUserByAdmin(){
     // const userID = localStorage.getItem('userID');
     const {id} = useParams()

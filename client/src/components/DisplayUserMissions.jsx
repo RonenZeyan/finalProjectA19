@@ -8,7 +8,7 @@ import NewMissionModal from './NewMissionModal';
 import SearchCompo from './SearchCompo';
 
 
-
+//this component used for display the mission of user
 export default function DisplayUserMissions(){
     const [showModal,setShowModal] = useState(false)
     // const [users,setUsers] = useState([])
@@ -16,7 +16,7 @@ export default function DisplayUserMissions(){
     const tableHead=["_id","missionDescription","status"]
     const [UserMissions,setUserMissions] = useState([])
     const [allUserMissions,setAlluserMissions] = useState([])
-    useEffect(()=>{
+    useEffect(()=>{ //in the display of the page the data fetched from db and displayed in page 
         axios.get(`https://final-project-a19-api.vercel.app/users/userMissions/${id}`)
         .then(
             (UserMissions) =>{setUserMissions(UserMissions.data);setAlluserMissions(UserMissions.data); console.log(UserMissions.data);}
@@ -83,8 +83,8 @@ export default function DisplayUserMissions(){
                             <button id="searchBut" className="rounded-full bg-gray-300 border-2 px-2 border-cyan-600 font-bold">search</button>
                         </div>
                     </div> */}
-                <SearchCompo searchByList={["missionDescription"]} setData={setUserMissions} allData={allUserMissions} initialSearchState={'missionDescription'}/>
-
+                <SearchCompo searchByList={["missionDescription"]} setData={setUserMissions} allData={allUserMissions} initialSearchState={'missionDescription'}/> 
+    
                 <div className=""> 
                 {/* in extraColumns we dont need more Columns then we send an empty Function */}
                 {UserMissions && <Table tableSort={tableHead} data={UserMissions} extraColumns={[renderDeleteMission]}/>}            

@@ -26,9 +26,9 @@ const missionSchema = new Schema({
   status: {
     type: String,
     required: true,
-    enum: ['waiting','in proccess','completed'], // הגבלת הערכים לסטטוס המשימה
+    enum: ['waiting','in proccess','completed'], //we make enum for this 3 status  
   }
-}, { timestamps: true }); // הוספת תאריכי יצירה ועדכון אוטומטיים
+}, { timestamps: true }); // for add a time of creation 
 
 const MissionModel = mongoose.model('Mission', missionSchema);
 

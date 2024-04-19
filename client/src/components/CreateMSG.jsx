@@ -6,9 +6,10 @@ import axios from "axios"
 import { useNavigate } from 'react-router-dom';
 
 
-
+//this comonent used for display a page of create new MSG 
 export default function CreateMSG(){
 
+    //hooks and navigate for routes 
     const navigate = useNavigate()
     const [title,setTitle] = useState('')
     const [content,setContent] = useState('')
@@ -38,7 +39,7 @@ export default function CreateMSG(){
             <form onSubmit={submit} action="">
             <div className='flex flex-col justify-center items-center gap-6 w-full font-bold'>
                 <div className='flex  w-3/4 justify-center items-center'>
-                    <label className='m-4' htmlFor="">Title</label>
+                    <label className='m-4 pr-4' htmlFor="">Title</label>
                     <input onChange={(e)=>setTitle(e.target.value)} className='p-3 border border-black rounded-md w-3/4' type="text" name="" id="" />
                 </div>
                 <div className='flex  w-3/4 justify-center items-start'>

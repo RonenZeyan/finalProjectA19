@@ -1,3 +1,4 @@
+//this component used for display the footer that displayed in the end of all pages 
 export default function Footer(){
     return (
         <footer id="content" class="w-full h-[10vh]">

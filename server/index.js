@@ -1,12 +1,13 @@
-const express = require("express")
-const mongoose = require("mongoose")
+const express = require("express") //use for node js 
+const mongoose = require("mongoose") //used mongoose for mongodb
 const cors = require("cors")
+//the models of db 
 const UserModel = require('./models/Users')
 const MissionModel = require('./models/Missions')
 const MsgModel = require('./models/MSG')
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const multer = require('multer');
+const bcrypt = require('bcrypt');  //we was want to use for hash the passwords but i dont know why its not working in my computer 
+const jwt = require('jsonwebtoken');  //used for token
+const multer = require('multer');  //used for save uploaded pictures
 
 const app = express()
 app.use(express.json())
@@ -22,6 +23,7 @@ app.use(express.static('public'));
 //connect to mongodb in cloud 
 mongoose.connect("mongodb+srv://hunterman481:EWsTL72vV9XJOMFy@usersmissionsmanagement.byntanj.mongodb.net/?retryWrites=true&w=majority&appName=UsersMissionsManagement")
 
+//by this method we create a token
 function makeToken(userType)
 {
     const token = jwt.sign(
@@ -46,6 +48,7 @@ const storage = multer.diskStorage({
 const upload = multer({storage}) //multer save the picture 
 
 // admin
+//this used when user want to make a login (it check if the user is admin or normal user ) and make a token 
 app.post('/adminLogin',(req,res)=>{
     const {Email,Password} = req.body
     console.log(Email,Password)
@@ -57,15 +60,15 @@ app.post('/adminLogin',(req,res)=>{
                 const id = users[0].id
                 const username = users[0].name
                 let token;
-                if(email==="admin@gmail.com")
+                if(email==="admin@gmail.com") //we have just one admin then we check if email is this (email is unique) and make a token for admin (role == admin ) this role help us to know in front end witch type of home to display 
                 {
                     token = jwt.sign(
                             {role:"admin",name:username,email:email,userID:id},
                             "jwt_secret_key",
-                            {expiresIn:"1d"}
+                            {expiresIn:"1d"}  //the token is expires just for one day not more 
                     )
                 }
-                else
+                else //in case it a normal user then we make a token with role user (and in front end dispaly a user home not admin home )
                 {
                     token = jwt.sign(
                         {role:"user",name:username,email:email,userID:id},
@@ -74,9 +77,9 @@ app.post('/adminLogin',(req,res)=>{
                 )  
                 }
                 console.log(email,id)
-                res.json({ loginStatus: true, token: token ,userID:id}); // שולח את הטוקן בתוך התגובה ה-JSON   
+                res.json({ loginStatus: true, token: token ,userID:id}); // we send the token as a json in res (Res that back to frontend as response to the Request) 
             }
-            else 
+            else  //data length back 0 then something wrong
             {
                 console.log('failed')
                 res.json({ loginStatus: false,ErrorMSG:"email or password is wrong"})
@@ -88,6 +91,7 @@ app.post('/adminLogin',(req,res)=>{
 });
 
 //admin
+//this used to get all the users in the db and them
 app.get('/users',(req,res)=>{
     UserModel.find({email:{$ne:"admin@gmail.com"}})  //we get all the users in the db חוץ מה admin
     .then(users=>res.json(users))
@@ -95,43 +99,47 @@ app.get('/users',(req,res)=>{
 });
 
 //admin
+//this used for get all mission in the db 
 app.get('/allMissions', (req, res) => {
     //find without filter mean we want to get all elements in the schema
     MissionModel.find() 
     .then(missions => {
-        console.log(typeof(missions[0].employeeId))
+        console.log(typeof(missions[0].employeeId)) //this console we use it instead of debugger אליקס ונעמי אתם יכולים להתעלם מהשורות של CONSOLE
         res.json(missions)}) //return the missions
     .catch(err=>res.json(err));
 });
 
 //admin
+//this used for get the mission of specific user (the id of user include in the request,sended from frontEND)
 app.get('/users/userMissions/:id', (req, res) => {
-    const objectId = new mongoose.Types.ObjectId(req.params.id);
-    MissionModel.find({"employeeId":objectId})
+    const objectId = new mongoose.Types.ObjectId(req.params.id); //data come from frontEND as string and in db we save the id as objectID then we convert string to objectID
+    MissionModel.find({"employeeId":objectId}) //get all missions that the field of employeeId of them is objectId
     .then(missions => res.json(missions))
     .catch(err=>res.json(err));
 });
 
 
 //admin
+//this used for delete a user (the id of the user we want to delete send with the request)
 app.delete('/users/delete/:id', (req, res) => {
-    const { id } = req.params;
+    const { id } = req.params; //get the id from the request 
 
-    // delete user then search his missions to delete them also 
-    UserModel.findByIdAndDelete(id)
+    // delete user from User Schema then search his missions to delete them also 
+    UserModel.findByIdAndDelete(id) 
     .then(deletedUser => {
         return MissionModel.deleteMany({ employeeId: id });
     })
     .then(result => {
         res.status(200).send(`User and his missions were deleted successfully. ${result.deletedCount} missions were deleted.`);
     })
-    .catch(err => {
+    .catch(err => { //if something error happen then we back a error json 
         console.error(err);
         res.status(500).json(err);
     });
 });
 
 //admin
+//this used for delete a mission (delete request)
 app.delete('/userMissions/delete/:id', (req, res) => {
     const { id } = req.params; //id of mission
 
@@ -140,14 +148,14 @@ app.delete('/userMissions/delete/:id', (req, res) => {
     .then(result => {
         res.status(200).send(`mission were deleted successfully.`);
     })
-    .catch(err => {
+    .catch(err => { //if something wrong happen then we send a error respond
         console.error(err);
         res.status(500).json(err);
     });
 });
 
-
-
+//admin
+//this used for add a new mission in the db  (post request because we add data)
 app.post('/add_mission',async (req,res)=>{
     const { date, missionDescription, time, userid } = req.body;    
     try {
@@ -177,6 +185,7 @@ app.post('/add_mission',async (req,res)=>{
 })
 
 //admin
+//this used to add a new message to the db (post request because we add data)
 app.post('/add_message',(req,res)=>{
     const {title,content} = req.body //get the title and content
     const status='new'; 
@@ -185,11 +194,13 @@ app.post('/add_message',(req,res)=>{
         MsgContent:content,
         status,
     };
-    MsgModel.create(newMSG)
+    MsgModel.create(newMSG) //add to db 
     .then(result=>res.send('success'))
     .catch(err=>res.send('failed'))
 })
 
+//admin,user
+//this get all the messages (get request becasue we just get from the db not add or update it)
 app.get('/get_messages',(req,res)=>{
     MsgModel.find()  //we get all the users in the db חוץ מה admin
     .then(all_messages=>{
@@ -198,12 +209,13 @@ app.get('/get_messages',(req,res)=>{
 });
 
 //admin
+//this add a new employee to the db 
 app.post('/add_employee',async (req,res)=>{
     const { name, email, phone, gender } = req.body;
     const password = Math.random().toString(36).slice(-8);  //create random password
     const age = 99; //default value chosen for age (user can change it)
-    const image = gender==="male"?'Images/iconMan.png':'Images/iconFemale.png';
-    const newEmployee = {
+    const image = gender==="male"?'Images/iconMan.png':'Images/iconFemale.png'; //check a gender then save a path of image 
+    const newEmployee = {  //make new object with data of employee to add for db 
         name,
         email,
         phone,
@@ -218,10 +230,10 @@ app.post('/add_employee',async (req,res)=>{
 });
 
 //user 
-//get missions of use and there status is waiting
+//get missions of user and that there status is waiting (id of user send with the request )
 app.get('/newUserMissions/:id',(req,res)=>{
     const objectId = new mongoose.Types.ObjectId(req.params.id);
-    MissionModel.find({"employeeId":objectId,"status":"waiting"})
+    MissionModel.find({"employeeId":objectId,"status":"waiting"})  //get just mission in waiting status 
     .then(missions => 
         // {res.json(missions)
         {if(missions.length>0)
@@ -254,6 +266,7 @@ app.get('/ExistingUserMissions/:id',(req,res)=>{
 });
 
 //user
+//get the data of user (id of user we want his data is send with the request )
 app.get('/userData/:id',(req,res)=>{
     const objectId = new mongoose.Types.ObjectId(req.params.id); 
     UserModel.findById(objectId)
@@ -261,12 +274,12 @@ app.get('/userData/:id',(req,res)=>{
     .catch(err=>res.json(res))
 })
 
-//user and admin
+//user and admin (they both can update data of the user)
 app.post('/editUserData/:id',upload.single('image'),(req,res)=>{
     console.log(req.body)
     console.log(req.file)
     const objectId = new mongoose.Types.ObjectId(req.params.id); 
-    const formData = req.body
+    const formData = req.body //formData because there is a pictures 
     if(req.file){
         formData.image = req.file.path.split('public\\')[1]; //split the string path in the public place and the second part (delete public/ from the path string)
     }
@@ -276,6 +289,7 @@ app.post('/editUserData/:id',upload.single('image'),(req,res)=>{
 })
 
 //user
+//this get the number of mission in the db in status waiting (in user home we display the num of new missions for the user )
 app.get('/numMissionsMessages/:id',(req,res)=>{
     const objectId = new mongoose.Types.ObjectId(req.params.id); 
     MissionModel.find({"employeeId":objectId,"status":"waiting"}) //we can right employeeID and status with "" or without
@@ -284,12 +298,15 @@ app.get('/numMissionsMessages/:id',(req,res)=>{
 })
 
 //user
+//like in the numMissionsMessages
 app.get('/numMessages',(req,res)=>{
     MsgModel.find() //we can right employeeID and status with "" or without
     .then(msg=>res.json(msg.length))
     .catch(err=>res.json(err))
 })
 
+//user
+//this used when user make accept for mission (in db we change the status of the mission from waiting for IN PROCESS)
 app.post('/acceptMission/:id', (req, res) => {
     const objectId = new mongoose.Types.ObjectId(req.params.id); 
     MissionModel.updateOne({ _id: objectId }, { $set: { status: 'IN PROCESS' } })
@@ -304,9 +321,11 @@ app.post('/acceptMission/:id', (req, res) => {
         });
 });
 
+//user
+//this used for change the status of mission to completed 
 app.post('/finishMission/:id', (req, res) => {
     const objectId = new mongoose.Types.ObjectId(req.params.id); 
-    MissionModel.updateOne({ _id: objectId }, { $set: { status: 'completed' } })
+    MissionModel.updateOne({ _id: objectId }, { $set: { status: 'completed' } }) //here we update in the db 
         .then(result => {
             if (result.matchedCount === 0) {
                 return res.status(404).send('Mission not found');

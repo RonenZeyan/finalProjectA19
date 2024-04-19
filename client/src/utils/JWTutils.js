@@ -1,5 +1,7 @@
 import { jwtDecode } from 'jwt-decode';
 
+//in this file we emplement a two functions that used for decode the secret token that we get from the backend 
+
 // this function decode the token we get from the backend (to extract a data about the user)
 export const decodeToken = (token) => {
   try {

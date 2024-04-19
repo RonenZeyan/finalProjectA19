@@ -1,7 +1,7 @@
 import '../Style.css';
 import { Link } from "react-router-dom";
 
-
+//this component used for display the global home (before user loggedIN)
 export default function Home(){
     return (
         <div className='home h-[100vh] flex justify-center items-center'>
