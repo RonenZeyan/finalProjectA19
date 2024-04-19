@@ -1,27 +1,38 @@
 import React from 'react';
 
-//this component used for create cell in the row that used as a reuse in table component 
+// This component is used to create a cell in a row, which is reused in the table component
 export const Cell = (prop) => {
-    //we check if the data is a path of image 
+    // Check if the data is a path of an image 
     const isImageUrl = (data) => {
         return (typeof data === 'string' || data instanceof String) && (data.match(/\.(jpeg|jpg|gif|png)$/) != null);
     };
 
-    const cellStyle = prop.data === 'completed' ? 'text-green-800' : 
-    prop.data === 'IN PROCESS' ? 'text-yellow-600' :
-    prop.data === 'waiting' ? 'text-red-600' : '';
+    // change the style based on the status of the data
+    const formattedData = formatStatus(prop.data);
+    const cellStyle = formattedData === 'COMPLETED' ? 'text-green-800' :
+                      formattedData === 'IN PROCESS' ? 'text-yellow-600' :
+                      formattedData === 'WAITING' ? 'text-red-600' : '';
 
     return (
         <td className={`border border-slate-300 font-bold px-5 ${cellStyle}`}>
             {prop.header ? (
-                <strong>{prop.data}</strong>
+                <strong>{formattedData}</strong>
             ) : isImageUrl(prop.data) ? (
-                <img className='m-auto' src={prop.data?`${prop.data}`:"/Images/iconMan.png"} alt="UserIMG" style={{width: '50px', height: '50px',border:'solid 2px grey',borderRadius:'50%'}} />
+                <img className='m-auto' src={prop.data ? `${prop.data}` : "/Images/iconMan.png"} alt="UserIMG" style={{width: '50px', height: '50px', border: 'solid 2px grey', borderRadius: '50%'}} />
             ) : (
-                prop.data
+                formattedData
             )}
         </td>
     );
 };
+
+// we used this function to format status text (to be upper instead of small)
+function formatStatus(data) {
+    const statuses = ['waiting', 'in process', 'completed'];
+    if (typeof data === 'string' && statuses.includes(data.toLowerCase())) {
+        return data.toUpperCase();
+    }
+    return data;
+}
 
 export default Cell;
